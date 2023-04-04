@@ -1,6 +1,14 @@
 # windows-trojan
-This is for educational purposes, hacking is illegal. 
 
+DISCLAIMER:
+
+This code is for educational and research purposes only. The author does not condone or support the use of this code for any illegal or unethical activities. The author is not responsible for any harm caused by the use or misuse of this code.
+
+By accessing and/or using this code, you agree to use it solely for educational and research purposes and to comply with all applicable laws and regulations. You assume full responsibility for any actions taken based on the information and code provided in this repository.
+
+This code is provided as-is, without warranty of any kind, express or implied. The author disclaims any and all liability for any damages or losses arising from the use or inability to use this code.
+
+The use of this code for any illegal or unethical activities is strictly prohibited. If you choose to use this code, you do so at your own risk and acknowledge that you may be subject to legal consequences.
 
 The code defines a C program that includes a function called CreateRatFile which creates a remote administration tool (RAT) file by creating a new process and setting its parameters. The function takes two arguments: a HANDLE to a process and a char* that specifies the command-line arguments for the RAT file.
 
